@@ -61,3 +61,23 @@ url = f'{base}/bot{token}/setWebhook?url=https://0660d15b.ngrok.io/{token}'
    ```
 
    
+
+
+
+## [D05] 191028
+
+1. 프로젝트 만드는 법
+
+   ```bash
+   $django-admin startproject '이름'
+   ```
+
+   
+
+2. app 만드는법
+
+   ```bash
+   $django-admin startapp '이름'
+   ```
+
+3.  
