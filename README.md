@@ -80,4 +80,11 @@ url = f'{base}/bot{token}/setWebhook?url=https://0660d15b.ngrok.io/{token}'
    $django-admin startapp '이름'
    ```
 
-3.  
+
+
+
+## [D06] 191029
+
+1. static파일을 사용할려면 html소스에 {% load static %} 를 써줘야함.
+2. {{% extends 'utilities/base,html' %}}
+
