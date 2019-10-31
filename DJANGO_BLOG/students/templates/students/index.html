@@ -1,0 +1,14 @@
+{% extends 'students/base.html' %}
+
+{% block title %}STUDENTS{% endblock %}
+{% block body %}
+    <h1 class='text-center'>STUDENTS</h1>
+    <a href="{% url 'students:new' %}">[새글 작성]</a>
+    <hr>
+    {%  for student in students %}
+    <p>NO.{{ student.pk }}</p>
+    <p>이름 : {{ student.name }}</p>
+    <a href="{% url 'students:detail' student.pk %}">[글 상세보기]</a>
+    <hr>
+    {% endfor%}
+{% endblock %}

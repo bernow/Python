@@ -1,0 +1,16 @@
+{% extends 'students/base.html' %}
+
+{% block title %}EDIT{% endblock %}
+{% block body %}
+    <h1 class='text-center'>EDIT</h1>
+    <form action="/students/{{ student.pk }}/update/" method="POST">
+        <!-- post일때는 {% csrf_token %} 무조건 써줘야함 -->
+        {% csrf_token %} 
+        제목: <input type="text" name="name" value="{{ student.name }}"> <br><br>
+        이메일: <input type="email" name="email" value="{{ student.email }}"> <br><br>
+        나이: <input type="text" name="age" value="{{ student.age }}"> <br><br>
+        <input type="submit"> 
+    </form>
+    <hr>
+    <a href="/students/{{ student.pk }}/">[뒤로가기]</a>
+{% endblock %}

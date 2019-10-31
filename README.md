@@ -91,7 +91,7 @@ url = f'{base}/bot{token}/setWebhook?url=https://0660d15b.ngrok.io/{token}'
 
 
 
-## [D06] 191029
+## [D07] 191030
 
 ### DataBase
 
@@ -247,3 +247,22 @@ $ pip install django-extensions
 $ python manage.py shell_plus
 ````
 
+
+
+## [D08] 191031
+
+### HTTP
+
+1. 기본 속성
+   - Stateless : 상태정보가 저장되지 않음. 즉, 요청 사이에는 연결고리가 없음
+   - Connectless : 서버에 요청을 하고 응답을 한 이후에 연결은 끊어짐
+2. 응답 코드
+   - 200 : 정상적으로 수행됨
+   - 300 : 서버가 클라이언트를 다른 주소로 보냄
+   - 400 : 서버가 요청을 받지 못하였음
+   - 401 : 미승인(비인증)
+   - 403 : 접근할 권리가 없음
+3. Method
+   - GET
+   - POST
+   - PUT/PATCH

@@ -3,7 +3,7 @@
 {% block title %}NEW{% endblock %}
 {% block body %}
     <h1 class='text-center'>NEW</h1>
-    <form action="/articles/create/" method="POST">
+    <form action="" method="POST">
         <!-- post일때는 {% csrf_token %} 무조건 써줘야함 -->
         {% csrf_token %} 
         제목: <input type="text" name="title"> <br><br>
@@ -11,5 +11,5 @@
         <input type="submit"> 
     </form>
     <hr>
-    <a href="/articles/">[뒤로가기]</a>
+    <a href="{% url 'articles:index' %}">[뒤로가기]</a>
 {% endblock %}

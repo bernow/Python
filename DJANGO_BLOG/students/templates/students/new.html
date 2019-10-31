@@ -1,0 +1,16 @@
+{% extends 'students/base.html' %}
+
+{% block title %}NEW{% endblock %}
+{% block body %}
+    <h1 class='text-center'>NEW</h1>
+    <form action="{% url 'students:create' %}" method="POST">
+        <!-- post일때는 {% csrf_token %} 무조건 써줘야함 -->
+        {% csrf_token %} 
+        이름: <input type="text" name="name"> <br><br>
+        이메일: <input type="email" name="email"> <br><br>
+        나이 : <input type="text" name="age"> <br><br>
+        <input type="submit"> 
+    </form>
+    <hr>
+    <a href="{% url 'students:index' %}">[뒤로가기]</a>
+{% endblock %}

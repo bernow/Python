@@ -1,0 +1,15 @@
+{% extends 'articles/base.html' %}
+
+{% block title %}EDIT{% endblock %}
+{% block body %}
+    <h1 class='text-center'>EDIT</h1>
+    <form action="/articles/{{ article.pk }}/update/" method="POST">
+        <!-- post일때는 {% csrf_token %} 무조건 써줘야함 -->
+        {% csrf_token %} 
+        제목: <input type="text" name="title" value="{{ article.title }}"> <br><br>
+        내용: <textarea name="content" cols="30" rows="10">{{ article.content }}</textarea> <br><br>
+        <input type="submit"> 
+    </form>
+    <hr>
+    <a href="/articles/{{ article.pk }}/">[뒤로가기]</a>
+{% endblock %}
