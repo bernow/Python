@@ -1,0 +1,24 @@
+{%  extends 'movies/base.html' %}
+
+{% block title %}DETAIL{% endblock %}
+{% block body %}
+    <h1 class='text-center'>영화상세정보</h1>
+    <h2>{{ movie.pk }}번 글</h2>
+    <hr>
+        <p>영화제목 : {{ movie.title}}</p>
+        <p>영화제목(영문) : {{ movie.title_en }}</p>
+        <p>누적 관객수 : {{ movie.audience }}</p>
+        <p>개봉일 : {{ movie.open_date }}</p> 
+        <p>장르 : {{ movie.genre }}</p> 
+        <p>관람등급 : {{ movie.watch_grade }}</p> 
+        <p>평점 : {{ movie.score }}</p>
+        <p>포스터 이미지 URL : {{ movie.poster_url }}</p>
+        <p>영화 소개 : {{ movie.description }}</p>
+    <hr>
+    <a href="{% url 'movies:update' movie.pk %}" class="btn btn-primary" style="display:inline;">수정</a>
+    <form action="{% url 'movies:delete' movie.pk %}" onclick="return confirm('R U sure??')" method="POST" style="display:inline;">
+        {% csrf_token %}
+        <button class='btn btn-danger'>삭제</button>
+    </form>
+    <a href="{% url 'movies:index' %}" class="btn btn-success" style="display:inline;">목록</a>
+{% endblock %}
