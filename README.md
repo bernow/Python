@@ -266,3 +266,54 @@ $ python manage.py shell_plus
    - GET
    - POST
    - PUT/PATCH
+
+
+
+
+
+## [D09] 191104
+
+### 댓글 기능 
+
+1. models.py(Comment클래스 추가)
+
+   ````bash
+   class Comment(models.Model):
+       content = models.CharField(max_length=300) #댓글
+       created_at = models.DateTimeField(auto_now_add=True) #댓글 생성 날짜
+       article = models.ForeignKey(Article, on_delete=models.CASCADE)
+       #article클래스 외래키 설정(연결시키는거)
+   ````
+
+2.  admin.py
+
+   ```bash
+   class CommentAdmin(admin.ModelAdmin):
+       list_display = ('id','content','created_at','article_id')
+   ```
+
+3. shell
+
+   ```bash
+   # article을 pk에 맞게 불러온다
+   article = Article.objects.get(pk=2)
+   
+   # comment를 만들어준다
+   comment=Comment()
+   
+   # comment의 값을 넣어준다
+   comment.content='first comment' -> 방법1
+   comment = Comment(article=article, content='second comment') -> 방법2
+   
+   # comment에 article을 연결
+   comment.article=article
+   
+   # comment의 맞는 article글 찾는 방법
+   comment.article
+   
+   # article의 comment불러오기(comment는 여러개이므로 전체를 불러와야함)
+   article.comment_set.all()
+   ```
+
+   
+

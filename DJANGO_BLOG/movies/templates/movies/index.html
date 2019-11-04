@@ -6,9 +6,10 @@
     <a href="{% url 'movies:create' %}">[새글 작성]</a>
     <hr>
     {%  for movie in movies %}
-    <p>영화 제목 : {{ movie.title }}</p>
+    <p>NO.{{movie.pk}}</p>
+    <p>영화 제목 : <a href="{% url 'movies:detail' movie.pk %}">{{ movie.title }}</a>({{ movie.title_en}})</p>
     <p>영화 평점 : {{ movie.score }}</p>
-    <a href="{% url 'movies:detail' movie.pk %}">[글 상세보기]</a>
+    
     <hr>
     {% endfor%}
 {% endblock %}

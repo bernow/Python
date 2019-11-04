@@ -2,21 +2,23 @@
 
 {% block title %}NEW{% endblock %}
 {% block body %}
-    <h1 class='text-center'>NEW</h1>
+    <h1 class='text-center'>NEW MOVIE</h1>
+    <div class="container">
     <form action="" method="POST">
         <!-- post일때는 {% csrf_token %} 무조건 써줘야함 -->
-        {% csrf_token %} 
-        영화제목: <input type="text" name="title"> <br><br>
-        영화제목(영문): <input type="text" name="title_en"> <br><br>
-        누적 관객수: <input type="number" name="audience"> <br><br>
-        개봉일: <input type="date" name="open_date"> <br><br>
-        장르: <input type="text" name="genre"> <br><br>
-        관람등급: <input type="text" name="watch_grade"> <br><br>
-        평점: <input type="number" step="0.01" name="score"> <br><br>
-        포스터 이미지 URL: <input type="text" name="poster_url"> <br><br>
-        영화 소개: <textarea name="description" cols="30" rows="10"></textarea> <br><br>
-        <input type="submit"> 
+        {% csrf_token %}
+        영화제목 <br><input type="text" name="title"> <br>
+        영화제목(영문)<br> <input type="text" name="title_en"> <br>
+        누적 관객수<br> <input type="number" name="audience"> <br>
+        개봉일<br> <input type="date" name="open_date"> <br>
+        장르<br> <input type="text" name="genre"> <br>
+        관람등급<br> <input type="text" name="watch_grade"> <br>
+        평점<br> <input type="number" step="0.01" name="score"> <br>
+        포스터 이미지 URL<br> <input type="text" name="poster_url"> <br>
+        영화 소개<br> <textarea name="description" cols="30" rows="10"></textarea> <br>
+        <input type="submit">
     </form>
+    </div>
     <hr>
     <a href="{% url 'movies:index' %}">[뒤로가기]</a>
 {% endblock %}
