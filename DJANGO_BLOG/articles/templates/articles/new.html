@@ -3,11 +3,13 @@
 {% block title %}NEW{% endblock %}
 {% block body %}
     <h1 class='text-center'>NEW</h1>
-    <form action="" method="POST">
+    <form action="" method="POST" enctype="multipart/form-data">
         <!-- post일때는 {% csrf_token %} 무조건 써줘야함 -->
         {% csrf_token %} 
         제목: <input type="text" name="title"> <br><br>
         내용: <textarea name="content" cols="30" rows="10"></textarea> <br><br>
+        이미지 : <input type="file" name="image" accept="image/*"> 
+        <!-- accept는 image파일만 필터할때 사용 -->
         <input type="submit"> 
     </form>
     <hr>

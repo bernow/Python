@@ -1,13 +1,21 @@
 {% extends 'articles/base.html' %}
+{% load static%}
 
 {% block title %}EDIT{% endblock %}
 {% block body %}
     <h1 class='text-center'>EDIT</h1>
-    <form action="/articles/{{ article.pk }}/update/" method="POST">
+    {% if article.image %}    
+    기존이미지 : <img src="{{ article.image.url }}" alt="{{ article.image }}" width="20%" height="20%">
+    {% else %}
+    기존이미지 : <img src="{% static 'articles/images/no.jpg' %}" alt="no_image" width="15%" height="15%"></p>
+    {% endif %}
+    <img src="" alt="">
+    <form action="/articles/{{ article.pk }}/update/" method="POST" enctype="multipart/form-data">
         <!-- post일때는 {% csrf_token %} 무조건 써줘야함 -->
         {% csrf_token %} 
         제목: <input type="text" name="title" value="{{ article.title }}"> <br><br>
         내용: <textarea name="content" cols="30" rows="10">{{ article.content }}</textarea> <br><br>
+        이미지 : <input type="file" name="image" accept="image/*">
         <input type="submit"> 
     </form>
     <hr>

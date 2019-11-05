@@ -1,8 +1,11 @@
 {% extends 'articles/base.html' %}
+{% load static %}
 
 {% block title %}CRUD{% endblock %}
 {% block body %}
     <h1 class='text-center'>Articles</h1>
+    <img src="{% static 'articles/images/gg.jpg' %}" alt="sample" width="20%" height="30%">
+    <img src="{% static 'images/aa.jpg' %}" alt="sample" width="20%" height="10%"> <br>
     <a href="{% url 'articles:create' %}">[새글 작성]</a>
     <hr>
     {%  for article in articles %}

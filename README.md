@@ -317,3 +317,24 @@ $ python manage.py shell_plus
 
    
 
+## [D10] 191105
+
+1. 이미지 파일 넣기
+
+```bash
+# 이미지처리
+$ pip install pillow
+
+파일을 보낼려고 할 때 form태그에 enctype을 해줘야한다.
+Ex) enctype="multipart/form-data"
+
+# PIL, Pillow를 좀 더 쓰기 쉽도록 도와주는 라이브러리
+$ pip install pilkit
+
+# django를 안써주면 일반imagekit랑 2개가 install되서 충돌난다
+$ pip install django-imagekit
+
+```
+
+
+
