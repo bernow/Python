@@ -338,3 +338,41 @@ $ pip install django-imagekit
 
 
 
+## [D11] 191106
+
+### FORM
+
+1. 설정방법
+
+   - 사용하는 app안에 forms.py 파일 생성
+
+     ````bash
+     from django import forms
+     # class로 설정해준다.
+     class ArticleForm(forms.Form):
+         title = forms.CharField(max_length=100)
+         content = forms.CharField()
+     ````
+
+2.  views.py에서 사용
+
+   ```bash
+   if request.method == 'POST':
+           form = ArticleForm(request.POST) 
+       # 사용자가 ArticleForm 으로 보낸 데이터를 받아서 form이라는 인스턴스를 생성
+       # form의 type은 ArtilcleForm이라는 클래스의 인스턴스(request.POST는 QueryDict로 담긴다.)
+           if form.is_valid(): # form이 유효한지 체크한다
+               #form.cleaned_data 데이터를 요청받은대로 처리한다.
+               title = form.cleaned_data.get('title')            
+               content = form.cleaned_data.get('content')
+               article = Article.objects.create(title=title, content=content)
+               return redirect('articles:index')
+       else:
+           form = ArticleForm()
+           #상황에 따라 context에 넘어가는 2가지 form
+           # 1. GET : 기본 form 으로 넘겨짐
+           # 2. POST : 검증에 실패(is_valid -> False)한 form(오류 메시지를 포함)상태로 넘겨준다
+       return render(request, 'articles/new.html', {'form':form})
+   ```
+
+   
