@@ -1,0 +1,19 @@
+{% extends 'movies/base.html' %}
+
+{% block title %}EDIT{% endblock %}
+{% block body %}
+    <h1 class='text-center'>{{ movie.title }}</h1>
+    <div class="container">
+    <form action="/movies/{{ movie.pk }}/update/" method="POST">
+        <!-- post일때는 {% csrf_token %} 무조건 써줘야함 -->
+        {% csrf_token %} 
+        영화제목<br> <input type="text" name="title" value="{{ movie.title }}"> <br>
+        누적 관객수<br> <input type="number" name="audience" value="{{ movie.audience }}"> <br>
+        포스터 이미지 URL<br> <input type="text" name="poster_url" value="{{ movie.poster_url }}" style="width:34.4%"> <br>
+        영화 소개<br> <textarea name="description" cols="50" rows="10">{{ movie.description }}</textarea> <br>
+        <input type="submit"> 
+    </form>
+    </div>
+    <hr>
+    <a href="/movies/{{ movie.pk }}/">[뒤로가기]</a>
+{% endblock %}
