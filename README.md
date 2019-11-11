@@ -376,3 +376,99 @@ $ pip install django-imagekit
    ```
 
    
+
+## [D12] 191111
+
+### Model Form
+
+- form 클래스를 상속받은 클래스 (forms.ModelForm)
+- form 을 만들 때 model 클래스의 내역 그래도 form을 만든다면(Model Form) forms.py에서 form 필드를 중복해서 정의할 필요가 없다.
+- 모델과 관련된 form 이라면 모델 폼을 사용하는 것이 좋다
+
+
+
+1. Form 과 Model Form의 차이
+
+   - Form(일반 폼) : 직접 필드 정의, 위젯 설정이 필요
+   - Model Form (모델 폼) : 모델과 필드를 지정하면 모델폼이 자동으로 폼 필드를 생성
+
+   ```bash
+   # 일반 Form(위젯 설정까지)
+    class ArticleForm(forms.Form):
+        title = forms.CharField(
+            max_length = 100,
+            label = '제목',
+            widget = forms.TextInput(
+                attrs = {
+                    'class' : 'my-title',
+                    'placeholder' : 'Enter the title',
+                }
+            )
+            )
+        content = forms.CharField(
+            label = '내용',
+            widget = forms.Textarea(
+                attrs={
+                    'class' : 'my-content',
+                   'placeholder' : 'Enter the content',
+                    'rows' : 5,
+                    'cols' : 50,
+                }
+            )
+            )
+            
+   # Model Form
+   class ArticleForm(forms.ModelForm):
+       class Meta:
+           model = Article
+           fields =['title','content',]
+   ```
+
+   
+
+2. ModelForm.save( )
+
+   - Model From 클래스에는 .save( ) 메소드가 구현되어 있음
+
+     ```bash
+     # 사용예시
+     def create(request):
+         if request.method == 'POST':
+             form = ArticleForm(request.POST) 
+             if form.is_valid():
+             #POST로 넘어온 값들을 form.save로 바로 저장한다.
+             	article = form.save()
+             	return redirect('articles:index')
+         else:
+             form = ArticleForm()
+         return render(request, 'articles/form.html', {'form':form})
+     ```
+
+     
+
+3.  ModelForm을 활용한 Model Instance 수정
+
+   - 수정 대상이 되는 model instance를 Model Form 인스턴스 생성시에 instance 인자로서 지정한다.
+
+   ```bash
+   def update(request, article_pk):
+       article = get_object_or_404(Article, pk=article_pk)
+       if request.method == 'POST':
+       	# instance=article은 기본적으로 적용되는 form에 값(형식)을 나타낸다.
+           form = ArticleForm(request.POST, instance=article)
+           if form.is_valid():
+               article = form.save()
+               # article.title = form.cleaned_data.get('title')
+               # article.content = form.cleaned_data.get('content')
+               # article.save()
+               return redirect('articles:detail', article.pk)
+       else:
+           # ArticleForm 을 초기화(이전에 DB에 저장된 데이터 입력값을 넣어준 상태)
+           form = ArticleForm(instance=article)
+           # form = ArticleForm(initial='title':article.title,'content':article.content}) 
+           # 방법 1
+           # form = ArticleForm(initial=article.__dict__) # 딕셔너리 자료형이 되어 저장     # 방법 2
+       return render(request, 'articles/form.html', {'form':form, 'article':article})
+   ```
+
+   

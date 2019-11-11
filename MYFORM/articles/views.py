@@ -12,17 +12,18 @@ def create(request):
         # 사용자가 ArticleForm 으로 보낸 데이터를 받아서 form이라는 인스턴스를 생성
         # form의 type은 ArtilcleForm이라는 클래스의 인스턴스(request.POST는 QueryDict로 담긴다.)
         if form.is_valid(): # form이 유효한지 체크한다
+            article = form.save()
             #form.cleaned_data 데이터를 요청받은대로 처리한다.
-            title = form.cleaned_data.get('title')            
-            content = form.cleaned_data.get('content')
-            article = Article.objects.create(title=title, content=content)
+            # title = form.cleaned_data.get('title')            
+            # content = form.cleaned_data.get('content')
+            # article = Article.objects.create(title=title, content=content)
             return redirect('articles:index')
     else:
         form = ArticleForm()
         #상황에 따라 context에 넘어가는 2가지 form
         # 1. GET : 기본 form 으로 넘겨짐
         # 2. POST : 검증에 실패(is_valid -> False)한 form(오류 메시지를 포함)상태로 넘겨준다
-    return render(request, 'articles/new.html', {'form':form})
+    return render(request, 'articles/form.html', {'form':form})
 
         # title = request.POST.get('title')
         # content = request.POST.get('content')
@@ -33,6 +34,7 @@ def create(request):
     #     return render(request, 'articles/new.html')
 
 def detail(request, article_pk):
+    # get_object_or_404 = page가 없는데 서버의(코드상의) 문제로 나오는걸 정확하게 에러페이지를 표현하기 위해 사용
     article = get_object_or_404(Article, pk=article_pk)
     # article = Article.objects.get(pk=article_pk)
     return render(request, 'articles/detail.html', {'article':article})
@@ -48,14 +50,16 @@ def delete(request, article_pk):
 def update(request, article_pk):
     article = get_object_or_404(Article, pk=article_pk)
     if request.method == 'POST':
-        form = ArticleForm(request.POST)
+        form = ArticleForm(request.POST, instance=article)
         if form.is_valid():
-            article.title = form.cleaned_data.get('title')
-            article.content = form.cleaned_data.get('content')
-            article.save()
+            article = form.save()
+            # article.title = form.cleaned_data.get('title')
+            # article.content = form.cleaned_data.get('content')
+            # article.save()
             return redirect('articles:detail', article.pk)
     else:
         # ArticleForm 을 초기화(이전에 DB에 저장된 데이터 입력값을 넣어준 상태)
-        form = ArticleForm(initial={'title':article.title, 'content':article.content}) # 방법 1
+        form = ArticleForm(instance=article)
+        # form = ArticleForm(initial={'title':article.title, 'content':article.content}) # 방법 1
         # form = ArticleForm(initial=article.__dict__) # 딕셔너리 자료형이 되어 저장     # 방법 2
-    return render(request, 'articles/new.html', {'form':form})
+    return render(request, 'articles/form.html', {'form':form, 'article':article})

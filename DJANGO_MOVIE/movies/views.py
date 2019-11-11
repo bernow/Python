@@ -7,8 +7,9 @@ def index(request):
 
 def detail(request, movie_id):
     movie = Movie.objects.get(pk=movie_id)
+    scores = movie.score_set.order_by('-pk')
     # scores = movie.score_set.all()
-    return render(request, 'movies/detail.html', {'movie':movie})
+    return render(request, 'movies/detail.html', {'movie':movie, 'scores': scores})
 # 'scores':scores}
 
 def delete(request, movie_id):
@@ -37,7 +38,7 @@ def score_create(request, movie_id):
         score = Score()
         score.content = request.POST.get('content')
         score.score = request.POST.get('score')
-        score.movie = movie
+        score.movie_id = movie
         score.save()
         return redirect('movies:detail', movie.pk)
     else:

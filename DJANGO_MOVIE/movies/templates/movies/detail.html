@@ -7,28 +7,26 @@
     <hr>
         <p>영화제목 : {{ movie.title}}</p>
         <p>누적 관객수 : {{ movie.audience }}</p>
-        <p>포스터 이미지 URL : {{ movie.poster_url }}</p>
+        영화 이미지 : <img src="{{ movie.poster_url }} " alt="">
+        <!-- <p>포스터 이미지 URL : {{ movie.poster_url }}</p> -->
         <p>영화 소개 : {{ movie.description }}</p>
     <hr>
     <form action="{% url 'movies:score_create' movie.id %}" method="POST">
         {% csrf_token%}
         리뷰 입력 : <input type="text" name='content'>
         평점 : <input type="number" name='score'>
-        <input type="submit" value="입력">
+        <button class='btn btn-success'>입력</button>
     </form>
     <hr>
-    <h3>리뷰/평점 | 현재 리뷰수: {{ scores|length }}</h3>
+    <h3>리뷰/평점</h3>
     {% for score in scores %}
     <u1>
         <ol>
-            {{ score.content }}
+            리뷰 : {{ score.content }} | 평점 : {{ score.score }}
             <form action="{% url 'movies:score_delete' movie.id score.id %}" method="POST" style="display: inline;">
-                {% csrf_token%}
+                {% csrf_token %}
                 <button class="btn btn-warning btn-sm">삭제</button>
             </form>
-        </ol>
-        <ol>
-            {{ score.score }}
         </ol>
     </u1>
     {% empty %}
