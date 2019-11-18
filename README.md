@@ -480,6 +480,9 @@ $ pip install django-imagekit
   ```bash
   @login_required # 로그인했을경우에 실행
   @require_POST # POST인 경우에 실행
+  
+ex) 로그인 정보 활용 방법
+  user.is_authenticated -> 로그인 했을경우
   ```
-
+  
   
