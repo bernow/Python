@@ -472,3 +472,14 @@ $ pip install django-imagekit
    ```
 
    
+
+### [D13] 191118
+
+- @require (if문 대신에 간단하게 설정), 병행해서 사용 가능
+
+  ```bash
+  @login_required # 로그인했을경우에 실행
+  @require_POST # POST인 경우에 실행
+  ```
+
+  

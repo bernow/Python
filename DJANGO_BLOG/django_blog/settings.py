@@ -31,10 +31,11 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'articles',
+    'accounts',
     'movies',
     'pasts',
     'students',
-    'articles',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -44,6 +45,7 @@ INSTALLED_APPS = [
     'imagekit',
 
     'django_extensions',
+    'bootstrap4',
 ]
 
 MIDDLEWARE = [
