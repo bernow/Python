@@ -471,7 +471,44 @@ $ pip install django-imagekit
        return render(request, 'articles/form.html', {'form':form, 'article':article})
    ```
 
-   
+
+
+
+### [D13] 191112
+
+- Django ModelForm review
+- Django Authentication
+  - Signup / Login / Logout / Quit
+
+
+
+### [D14] 191113
+
+- Webpage Designing(Bootstrap)
+- Django Authentication
+  - Edit / Password
+  - template: auth_form
+  - Model: article.user
+
+
+
+### [D15] 191114
+
+- Django Authentication
+  - comment.user
+- Django Model Relation
+  - 1:N (Article:Comment / User:Article / User:Comment)
+  - M:N (User:Article[Like] / User:User[Following/Follower]) Logic
+
+
+
+
+
+### [D16] 191115
+
+- Django ModelForm, 1:N, Auth 종합실습(Movie / Rating)
+
+
 
 ### [D13] 191118
 
@@ -481,8 +518,13 @@ $ pip install django-imagekit
   @login_required # 로그인했을경우에 실행
   @require_POST # POST인 경우에 실행
   
+  ```
+
 ex) 로그인 정보 활용 방법
   user.is_authenticated -> 로그인 했을경우
+
   ```
+
   
-  
+  ```
+
