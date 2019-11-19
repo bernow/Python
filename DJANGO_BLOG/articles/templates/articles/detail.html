@@ -57,6 +57,7 @@
     {% empty %}
     <p>댓글이 아직 없습니다.</p>
     {% endfor %}
+        {% include 'articles/_follow.html' %}
     <hr>
     {% if article.user == request.user %}
     <a href="{% url 'articles:update' article.pk %}" class="btn btn-dark" style="display:inline;">수정</a>

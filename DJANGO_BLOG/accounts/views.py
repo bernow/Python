@@ -1,22 +1,23 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm, UserChangeForm, PasswordChangeForm
-from .forms import UserCustomChangeForm
+from .forms import UserCustomChangeForm, UserCustomCreationForm
 from django.contrib.auth import update_session_auth_hash    # 비밀번호 변경시 session_auth_hash 정보를 update
 from django.contrib.auth import login as auth_login
 from django.contrib.auth import logout as auth_logout
 from django.contrib.auth import get_user_model  # django가 가지고 있는 user_model 활용
+from django.contrib.auth.decorators import login_required
 
 def signup(request):
     if request.user.is_authenticated:   # 인증된 유저가 요청을 보낸 경우, 회원가입 페이지를 보여주지 않고 목록 페이지로 redirect
         return redirect('articles:index')
     if request.method == 'POST':
-        form = UserCreationForm(request.POST)
+        form = UserCustomCreationForm(request.POST)
         if form.is_valid():
             user = form.save()
             auth_login(request, user)
             return redirect('articles:index')
     else:
-        form = UserCreationForm()
+        form = UserCustomCreationForm()
     return render(request, 'accounts/auth_form.html', {'form':form})
 
 def login(request):
@@ -29,7 +30,7 @@ def login(request):
             return redirect('articles:index')
     else:
         form = AuthenticationForm()
-    return render(request, 'accounts/auth_form.html', {'form':form})
+    return render(request, 'accounts/login.html', {'form':form})
 
 def logout(request):
     if request.method == 'POST':
@@ -62,6 +63,7 @@ def change_password(request):
         form = PasswordChangeForm(request.user)
     return render(request, 'accounts/auth_form.html', {'form':form})
 
+@login_required
 def profile(request, username):
     person = get_object_or_404(get_user_model(), username=username)
     return render(request, 'accounts/profile.html', {'person':person})
